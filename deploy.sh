@@ -21,7 +21,7 @@ log "Bağımlılıklar yükleniyor..."
 pnpm install --frozen-lockfile
 
 log "Veritabanı şeması güncelleniyor... (drizzle-kit push)"
-pnpm run db:push
+pnpm run db:push-force
 
 log "API server build ediliyor..."
 pnpm --filter @workspace/api-server run build
