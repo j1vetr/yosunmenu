@@ -199,13 +199,10 @@ router.post("/import/scrape", requireAuth, async (req, res): Promise<void> => {
 
     /* 2. Fetch all category product pages */
     send({ type: "log", msg: "Her kategorinin ürünleri çekiliyor…" });
+    // Dijita sitelerinde her kategori sayfası TÜM ürünleri içerir (JS ile filtreler).
+    // Her ürünün menu_cat alanı her zaman ürünün kendi gerçek kategorisini gösterir —
+    // sayfa bağlamına göre değişmez. Bu nedenle menu_cat'e güvenerek atama yapıyoruz.
     const allProducts = new Map<number, RawProduct>();
-    // Ürünün hangi kategori sayfasında İLK görüldüğünü tut.
-    // Dijita siteleri her kategori sayfasında TÜM ürünleri yükler,
-    // sadece JS ile filtreler. menu_cat her sayfada o sayfanın ID'sini
-    // gösterir — ürünün gerçek kategorisini değil. Bu yüzden menu_cat'e
-    // güvenmek yerine "ilk görüldüğü sayfa = ürünün kategorisi" kullanıyoruz.
-    const productSourceCat = new Map<number, number>(); // productId -> source catId
 
     for (let i = 0; i < rawCats.length; i++) {
       const cat = rawCats[i];
@@ -213,15 +210,11 @@ router.post("/import/scrape", requireAuth, async (req, res): Promise<void> => {
       try {
         const html = await fetchHtml(`${SOURCE}/categories?category=${cat.id}`);
         const prods = parseProducts(html);
-        let newInThisCat = 0;
-        for (const p of prods) {
-          if (!allProducts.has(p.id)) {
-            allProducts.set(p.id, p);
-            productSourceCat.set(p.id, cat.id); // ilk görüldüğü sayfa
-            newInThisCat++;
-          }
-        }
-        send({ type: "log", msg: `  ${cat.name}: ${prods.length} ürün (${newInThisCat} yeni)` });
+        // menu_cat doğru kategoriye işaret ettiği için sadece deduplikasyon yapıyoruz
+        for (const p of prods) { allProducts.set(p.id, p); }
+        // Bu sayfada kaç tane bu kategoriye ait ürün var?
+        const ownProds = prods.filter(p => p.menu_cat === cat.id);
+        send({ type: "log", msg: `  ${cat.name}: ${ownProds.length} ürün (sayfada toplam ${prods.length})` });
       } catch (e) {
         errors.push(`Kategori ${cat.id} çekilemedi: ${String(e)}`);
         send({ type: "log", msg: `  ❌ ${cat.name}: çekilemedi` });
@@ -291,9 +284,7 @@ router.post("/import/scrape", requireAuth, async (req, res): Promise<void> => {
     send({ type: "log", msg: "Ürünler veritabanına yazılıyor…" });
     let pi = 0;
     for (const p of prodList) {
-      // Ürünün hangi kategori sayfasında ilk göründüğünü kullan (menu_cat güvenilmez)
-      const sourceCatId = productSourceCat.get(p.id) ?? p.menu_cat;
-      const newCatId = catIdMap.get(sourceCatId);
+      const newCatId = catIdMap.get(p.menu_cat);
       if (!newCatId) { errors.push(`Ürün kategorisi bulunamadı (${p.menu_name})`); continue; }
 
       const baseSlug = slugify(p.menu_name) || `urun-${p.id}`;
