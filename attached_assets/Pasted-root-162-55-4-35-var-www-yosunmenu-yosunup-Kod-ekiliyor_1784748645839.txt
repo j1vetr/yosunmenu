@@ -1,0 +1,185 @@
+root@162-55-4-35:/var/www/yosunmenu# yosunup
+✓ Kod çekiliyor...
+remote: Enumerating objects: 19, done.
+remote: Counting objects: 100% (19/19), done.
+remote: Compressing objects: 100% (4/4), done.
+remote: Total 12 (delta 8), reused 12 (delta 8), pack-reused 0 (from 0)
+Unpacking objects: 100% (12/12), 1.65 KiB | 241.00 KiB/s, done.
+From https://github.com/j1vetr/yosunmenu
+   2b3951c..5658dbd  mains      -> origin/mains
+HEAD is now at 5658dbd chore: deploy.sh kaldırıldı, yosunup sunucuda /usr/local/bin altında olacak
+✓ Bağımlılıklar kuruluyor...
+Scope: all 10 workspace projects
+Lockfile is up to date, resolution step is skipped
+Already up to date
+. preinstall$ sh -c 'rm -f package-lock.json yarn.lock; case "$npm_config_user_agent" in pnpm/*) ;; *) echo "Use pnpm instead" >&2; exit 1 ;; esac'
+└─ Done in 37ms
+Done in 2.5s using pnpm v10.33.2
+✓ Veritabanı şeması güncelleniyor...
+
+> workspace@0.0.0 db:push /var/www/yosunmenu
+> pnpm --filter @workspace/db run push
+
+
+> @workspace/db@0.0.0 push /var/www/yosunmenu/lib/db
+> drizzle-kit push --config ./drizzle.config.ts
+
+Reading config file '/var/www/yosunmenu/lib/db/drizzle.config.ts'
+◇ injected env (1) from ../../.env // tip: ⌘ custom filepath { path: '/custom/path/.env' }
+Using 'pg' driver for database querying
+[✓] Pulling schema from database...
+· You're about to add users_username_unique unique constraint to the table, which contains 1 items. If this statement fails, you will receive an error from the database. Do you want to truncate users table?
+
+· You're about to add settings_slug_unique unique constraint to the table, which contains 1 items. If this statement fails, you will receive an error from the database. Do you want to truncate settings table?
+
+· You're about to add product_translations_product_id_language_code_unique unique constraint to the table, which contains 83 items. If this statement fails, you will receive an error from the database. Do you want to truncate product_translations table?
+
+· You're about to add languages_code_unique unique constraint to the table, which contains 4 items. If this statement fails, you will receive an error from the database. Do you want to truncate languages table?
+
+· You're about to add categories_slug_unique unique constraint to the table, which contains 10 items. If this statement fails, you will receive an error from the database. Do you want to truncate categories table?
+
+· You're about to add category_translations_category_id_language_code_unique unique constraint to the table, which contains 10 items. If this statement fails, you will receive an error from the database. Do you want to truncate category_translations table?
+
+· You're about to add products_slug_unique unique constraint to the table, which contains 83 items. If this statement fails, you will receive an error from the database. Do you want to truncate products table?
+
+ Warning  Found data-loss statements:
+
+
+THIS ACTION WILL CAUSE DATA LOSS AND CANNOT BE REVERTED
+
+Do you still want to push changes?
+error: must be owner of table product_translations
+    at /var/www/yosunmenu/node_modules/.pnpm/pg-pool@3.14.0_pg@8.22.0/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async Object.query (/var/www/yosunmenu/node_modules/.pnpm/drizzle-kit@0.31.10/node_modules/drizzle-kit/bin.cjs:78906:26)
+    at async pgPush (/var/www/yosunmenu/node_modules/.pnpm/drizzle-kit@0.31.10/node_modules/drizzle-kit/bin.cjs:82768:13)
+    at async Object.handler (/var/www/yosunmenu/node_modules/.pnpm/drizzle-kit@0.31.10/node_modules/drizzle-kit/bin.cjs:92226:9)
+    at async run (/var/www/yosunmenu/node_modules/.pnpm/drizzle-kit@0.31.10/node_modules/drizzle-kit/bin.cjs:91472:7) {
+  length: 103,
+  severity: 'ERROR',
+  code: '42501',
+  detail: undefined,
+  hint: undefined,
+  position: undefined,
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'aclchk.c',
+  line: '3588',
+  routine: 'aclcheck_error'
+}
+✓ Build alınıyor...
+
+> @workspace/api-server@0.0.0 build /var/www/yosunmenu/artifacts/api-server
+> node ./build.mjs
+
+
+  dist/index.mjs                       2.3mb ⚠️
+  dist/pino-worker.mjs               153.4kb
+  dist/pino-file.mjs                 142.1kb
+  dist/pino-pretty.mjs               114.6kb
+  dist/thread-stream-worker.mjs        7.3kb
+  dist/index.mjs.map                   4.1mb
+  dist/pino-worker.mjs.map           256.9kb
+  dist/pino-file.mjs.map             229.0kb
+  dist/pino-pretty.mjs.map           204.0kb
+  dist/thread-stream-worker.mjs.map   12.0kb
+
+⚡ Done in 418ms
+
+> @workspace/qr-menu@0.0.0 build /var/www/yosunmenu/artifacts/qr-menu
+> vite build --config vite.config.ts
+
+vite v7.3.5 building client environment for production...
+src/components/ui/tooltip.tsx (2:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+✓ 2811 modules transformed.
+Generated an empty chunk: "vendor-react".
+dist/public/index.html                                 1.73 kB │ gzip:   0.63 kB
+dist/public/assets/index-BBGJj2IC.css                115.14 kB │ gzip:  18.64 kB
+dist/public/assets/vendor-react-l0sNRNKZ.js            0.00 kB │ gzip:   0.02 kB
+dist/public/assets/chevron-down-BKLmF-CM.js            0.13 kB │ gzip:   0.14 kB
+dist/public/assets/loader-circle-BPZm6pGP.js           0.14 kB │ gzip:   0.15 kB
+dist/public/assets/search-Q5e6-40Y.js                  0.17 kB │ gzip:   0.17 kB
+dist/public/assets/download-DcX62oxx.js                0.23 kB │ gzip:   0.19 kB
+dist/public/assets/globe-BNOH4ynm.js                   0.24 kB │ gzip:   0.19 kB
+dist/public/assets/circle-alert-Lza4Fp99.js            0.25 kB │ gzip:   0.19 kB
+dist/public/assets/eye-DFcCoWiG.js                     0.25 kB │ gzip:   0.20 kB
+dist/public/assets/package-BUfqOGcZ.js                 0.37 kB │ gzip:   0.26 kB
+dist/public/assets/upload-C1yPquS6.js                  0.45 kB │ gzip:   0.31 kB
+dist/public/assets/sparkles-CiuUuZPq.js                0.50 kB │ gzip:   0.28 kB
+dist/public/assets/wifi-BGUIZt99.js                    0.88 kB │ gzip:   0.50 kB
+dist/public/assets/trash-2-DCFgqNpc.js                 0.98 kB │ gzip:   0.47 kB
+dist/public/assets/not-found-DpqQI16K.js               1.63 kB │ gzip:   0.64 kB
+dist/public/assets/login-BdeQGKHu.js                   2.12 kB │ gzip:   0.95 kB
+dist/public/assets/categories-page-JmTRd4rW.js         2.31 kB │ gzip:   1.18 kB
+dist/public/assets/language-page-DLO3xNXf.js           2.47 kB │ gzip:   1.15 kB
+dist/public/assets/category-detail-page-Dqef9hGY.js    2.94 kB │ gzip:   1.21 kB
+dist/public/assets/allergens-BYSMyniH.js               4.24 kB │ gzip:   1.24 kB
+dist/public/assets/layout-BVzpGN9i.js                  5.63 kB │ gzip:   1.91 kB
+dist/public/assets/product-detail-page-iOlKEVox.js     6.20 kB │ gzip:   2.08 kB
+dist/public/assets/menu-states-BTf04xE6.js             7.59 kB │ gzip:   2.57 kB
+dist/public/assets/page-transition-CZHO9ngG.js         7.65 kB │ gzip:   3.65 kB
+dist/public/assets/home-page-CB4rPcQd.js               8.82 kB │ gzip:   3.15 kB
+dist/public/assets/categories-C6SYScaw.js             11.38 kB │ gzip:   3.73 kB
+dist/public/assets/import-page-fSrQOo73.js            11.81 kB │ gzip:   3.78 kB
+dist/public/assets/vendor-router-rVEHLxDJ.js          13.22 kB │ gzip:   5.36 kB
+dist/public/assets/settings-DQ0v6m3Y.js               16.90 kB │ gzip:   5.04 kB
+dist/public/assets/vendor-query-OeOVlcyv.js           25.08 kB │ gzip:   7.61 kB
+dist/public/assets/vendor-dnd-CbmQomCX.js             47.36 kB │ gzip:  15.90 kB
+dist/public/assets/products-DxX_adkx.js               60.58 kB │ gzip:  14.53 kB
+dist/public/assets/vendor-motion-DwZWlLKE.js         122.73 kB │ gzip:  40.09 kB
+dist/public/assets/index-Bfb1dUMQ.js                 273.29 kB │ gzip:  89.08 kB
+dist/public/assets/dashboard-CytSucOU.js             399.32 kB │ gzip: 109.71 kB
+✓ built in 12.11s
+✓ PM2 restart...
+Use --update-env to update environment variables
+[PM2] Applying action restartProcessId on app [yosunmenu](ids: [ 31 ])
+[PM2] [yosunmenu](31) ✓
+┌────┬──────────────────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+│ id │ name                     │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
+├────┼──────────────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
+│ 9  │ adegloba                 │ default     │ 1.0.0   │ cluster │ 1155     │ 15D    │ 0    │ online    │ 0%       │ 60.4mb   │ root     │ disabled │
+│ 29 │ aegis-website            │ default     │ 0.40.1  │ fork    │ 225670   │ 3D     │ 0    │ online    │ 0%       │ 75.8mb   │ root     │ disabled │
+│ 5  │ besindegerim             │ default     │ 1.0.0   │ cluster │ 1117     │ 15D    │ 0    │ online    │ 0%       │ 46.9mb   │ root     │ disabled │
+│ 15 │ capari                   │ default     │ 1.0.0   │ cluster │ 1251     │ 15D    │ 0    │ online    │ 6.7%     │ 55.5mb   │ root     │ disabled │
+│ 17 │ capital-lashing          │ default     │ 1.0.0   │ fork    │ 1273     │ 15D    │ 0    │ online    │ 0%       │ 49.3mb   │ root     │ disabled │
+│ 19 │ carsi-api                │ default     │ 0.0.0   │ cluster │ 1299     │ 15D    │ 0    │ online    │ 0%       │ 73.1mb   │ root     │ disabled │
+│ 24 │ ecartejeans              │ default     │ 1.0.0   │ cluster │ 1386     │ 15D    │ 0    │ online    │ 0%       │ 122.5mb  │ root     │ disabled │
+│ 8  │ emerald                  │ default     │ N/A     │ fork    │ 50630    │ 9D     │ 1    │ online    │ 0%       │ 30.6mb   │ root     │ disabled │
+│ 6  │ escapetable              │ default     │ 1.0.0   │ cluster │ 1130     │ 15D    │ 0    │ online    │ 0%       │ 46.5mb   │ root     │ disabled │
+│ 27 │ gocards                  │ default     │ 1.0.0   │ fork    │ 3648912  │ 23h    │ 13   │ online    │ 0%       │ 117.8mb  │ root     │ disabled │
+│ 13 │ gokalaf                  │ default     │ 1.0.0   │ fork    │ 1223     │ 15D    │ 0    │ online    │ 0%       │ 72.2mb   │ root     │ disabled │
+│ 16 │ hank                     │ default     │ 1.0.0   │ fork    │ 1266     │ 15D    │ 0    │ online    │ 0%       │ 134.2mb  │ root     │ disabled │
+│ 10 │ kimdinliyor              │ default     │ 1.0.0   │ cluster │ 1168     │ 15D    │ 0    │ online    │ 6.7%     │ 66.6mb   │ root     │ disabled │
+│ 12 │ lacivert-teknoloji       │ default     │ 1.0.0   │ cluster │ 1215     │ 15D    │ 0    │ online    │ 0%       │ 37.1mb   │ root     │ disabled │
+│ 2  │ maison-nomade-contact    │ default     │ N/A     │ fork    │ 1100     │ 15D    │ 0    │ online    │ 0%       │ 28.5mb   │ root     │ disabled │
+│ 23 │ masgrupcleaning          │ default     │ 6.0.14  │ fork    │ 1963887  │ 8D     │ 1    │ online    │ 0%       │ 31.7mb   │ root     │ disabled │
+│ 20 │ mkg-api                  │ default     │ 0.0.0   │ fork    │ 1301     │ 15D    │ 0    │ online    │ 0%       │ 54.0mb   │ root     │ disabled │
+│ 4  │ nasiloldu                │ default     │ N/A     │ fork    │ 1118     │ 15D    │ 0    │ online    │ 0%       │ 84.5mb   │ root     │ disabled │
+│ 18 │ neon-api                 │ default     │ 0.0.0   │ fork    │ 1286     │ 15D    │ 0    │ online    │ 0%       │ 39.6mb   │ root     │ disabled │
+│ 22 │ oyuncuvds-api            │ default     │ 0.0.0   │ fork    │ 1362     │ 15D    │ 0    │ online    │ 0%       │ 32.7mb   │ root     │ disabled │
+│ 14 │ ozelilgi                 │ default     │ 1.0.0   │ fork    │ 1233     │ 15D    │ 0    │ online    │ 0%       │ 60.7mb   │ root     │ disabled │
+│ 21 │ polenstone               │ default     │ 1.0.0   │ fork    │ 1325     │ 15D    │ 0    │ online    │ 0%       │ 210.3mb  │ root     │ disabled │
+│ 3  │ postakod                 │ default     │ 1.0.0   │ fork    │ 1110     │ 15D    │ 0    │ online    │ 6.7%     │ 74.3mb   │ root     │ disabled │
+│ 30 │ qrmenu                   │ default     │ 0.40.1  │ fork    │ 598742   │ 2h     │ 10   │ online    │ 0%       │ 133.5mb  │ root     │ disabled │
+│ 28 │ sepetzen                 │ default     │ 1.0.0   │ fork    │ 68569    │ 15D    │ 1    │ online    │ 0%       │ 102.3mb  │ root     │ disabled │
+│ 7  │ toov                     │ default     │ 1.0.0   │ cluster │ 68215    │ 15D    │ 1    │ online    │ 0%       │ 47.9mb   │ root     │ disabled │
+│ 25 │ toplufirma-api           │ default     │ 0.0.0   │ fork    │ 1744470  │ 5D     │ 18   │ online    │ 0%       │ 128.2mb  │ root     │ disabled │
+│ 11 │ tutturduk                │ default     │ 1.0.0   │ fork    │ 1206     │ 15D    │ 0    │ online    │ 0%       │ 64.3mb   │ root     │ disabled │
+│ 0  │ watermarktoo-backend     │ default     │ 1.0.0   │ cluster │ 1085     │ 15D    │ 0    │ online    │ 0%       │ 71.5mb   │ root     │ disabled │
+│ 1  │ yosun-restaurant         │ default     │ 1.0.0   │ fork    │ 763839   │ 0s     │ 895… │ online    │ 0%       │ 54.2mb   │ root     │ disabled │
+│ 31 │ yosunmenu                │ default     │ N/A     │ fork    │ 763871   │ 0s     │ 4    │ online    │ 0%       │ 18.8mb   │ root     │ disabled │
+└────┴──────────────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
+
+✓ Tamamlandı.
+│ 31 │ yosunmenu                │ default     │ N/A     │ fork    │ 763871   │ 2s     │ 4    │ online    │ 0%       │ 126.4mb  │ root     │ disabled │
+root@162-55-4-35:/var/www/yosunmenu# yosunup
+-bash: /usr/local/bin/yosunup: No such file or directory
+root@162-55-4-35:/var/www/yosunmenu# chmod +x /usr/local/bin/yosunup
+chmod: cannot operate on dangling symlink '/usr/local/bin/yosunup'
+root@162-55-4-35:/var/www/yosunmenu# 
