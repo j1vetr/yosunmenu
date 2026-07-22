@@ -1,0 +1,99 @@
+root@162-55-4-35:/var/www/yosunmenu# pm2 logs yosunmenu --lines 50 --nostream
+[TAILING] Tailing last 50 lines for [yosunmenu] process (change the value with --lines option)
+/root/.pm2/logs/yosunmenu-error-31.log last 50 lines:
+31|yosunme | 2026-07-22 21:58:19:     at async <anonymous> (/var/www/yosunmenu/node_modules/.pnpm/drizzle-orm@0.45.2_@types+pg@8.20.0_pg@8.22.0/node_modules/src/node-postgres/session.ts:154:19)
+31|yosunme | 2026-07-22 21:58:19:     at async <anonymous> (/var/www/yosunmenu/artifacts/api-server/src/routes/menu.ts:152:22)
+31|yosunme | 2026-07-22 21:58:19: Error: Failed query: select "id", "slug", "restaurant_name", "logo_url", "primary_color", "currency", "default_language", "openai_key", "hero_image_url", "opening_hours", "instagram", "tagline", "quality_note", "address", "description", "logo_width", "price_updated_at", "wifi_name", "wifi_password", "maps_url", "location_notes", "updated_at" from "settings" limit $1
+31|yosunme | 2026-07-22 21:58:19: params: 1
+31|yosunme | 2026-07-22 21:58:19:     at NodePgPreparedQuery.queryWithCache (/var/www/yosunmenu/node_modules/.pnpm/drizzle-orm@0.45.2_@types+pg@8.20.0_pg@8.22.0/node_modules/src/pg-core/session.ts:73:11)
+31|yosunme | 2026-07-22 21:58:19:     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+31|yosunme | 2026-07-22 21:58:19:     at async <anonymous> (/var/www/yosunmenu/node_modules/.pnpm/drizzle-orm@0.45.2_@types+pg@8.20.0_pg@8.22.0/node_modules/src/node-postgres/session.ts:154:19)
+31|yosunme | 2026-07-22 21:58:19:     at async <anonymous> (/var/www/yosunmenu/artifacts/api-server/src/routes/menu.ts:152:22)
+31|yosunme | 2026-07-22 21:58:19: Error: Failed query: select "product_id", count(*) from "analytics_events" where "analytics_events"."type" = $1 group by "analytics_events"."product_id"
+31|yosunme | 2026-07-22 21:58:19: params: product_view
+31|yosunme | 2026-07-22 21:58:19:     at NodePgPreparedQuery.queryWithCache (/var/www/yosunmenu/node_modules/.pnpm/drizzle-orm@0.45.2_@types+pg@8.20.0_pg@8.22.0/node_modules/src/pg-core/session.ts:73:11)
+31|yosunme | 2026-07-22 21:58:19:     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+31|yosunme | 2026-07-22 21:58:19:     at async <anonymous> (/var/www/yosunmenu/node_modules/.pnpm/drizzle-orm@0.45.2_@types+pg@8.20.0_pg@8.22.0/node_modules/src/node-postgres/session.ts:154:19)
+31|yosunme | 2026-07-22 21:58:19:     at async <anonymous> (/var/www/yosunmenu/artifacts/api-server/src/routes/analytics.ts:15:16)
+31|yosunme | 2026-07-22 21:58:19: Error: Failed query: select "product_id", count(*) from "analytics_events" where "analytics_events"."type" = $1 group by "analytics_events"."product_id"
+31|yosunme | 2026-07-22 21:58:19: params: product_view
+31|yosunme | 2026-07-22 21:58:19:     at NodePgPreparedQuery.queryWithCache (/var/www/yosunmenu/node_modules/.pnpm/drizzle-orm@0.45.2_@types+pg@8.20.0_pg@8.22.0/node_modules/src/pg-core/session.ts:73:11)
+31|yosunme | 2026-07-22 21:58:19:     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+31|yosunme | 2026-07-22 21:58:19:     at async <anonymous> (/var/www/yosunmenu/node_modules/.pnpm/drizzle-orm@0.45.2_@types+pg@8.20.0_pg@8.22.0/node_modules/src/node-postgres/session.ts:154:19)
+31|yosunme | 2026-07-22 21:58:19:     at async <anonymous> (/var/www/yosunmenu/artifacts/api-server/src/routes/analytics.ts:15:16)
+31|yosunme | 2026-07-22 21:58:19: Error: Failed query: select "product_id", count(*) from "analytics_events" where "analytics_events"."type" = $1 group by "analytics_events"."product_id"
+31|yosunme | 2026-07-22 21:58:19: params: product_view
+31|yosunme | 2026-07-22 21:58:19:     at NodePgPreparedQuery.queryWithCache (/var/www/yosunmenu/node_modules/.pnpm/drizzle-orm@0.45.2_@types+pg@8.20.0_pg@8.22.0/node_modules/src/pg-core/session.ts:73:11)
+31|yosunme | 2026-07-22 21:58:19:     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+31|yosunme | 2026-07-22 21:58:19:     at async <anonymous> (/var/www/yosunmenu/node_modules/.pnpm/drizzle-orm@0.45.2_@types+pg@8.20.0_pg@8.22.0/node_modules/src/node-postgres/session.ts:154:19)
+31|yosunme | 2026-07-22 21:58:19:     at async <anonymous> (/var/www/yosunmenu/artifacts/api-server/src/routes/analytics.ts:15:16)
+31|yosunme | 2026-07-22 21:58:20: Error: Failed query: select "id", "slug", "restaurant_name", "logo_url", "primary_color", "currency", "default_language", "openai_key", "hero_image_url", "opening_hours", "instagram", "tagline", "quality_note", "address", "description", "logo_width", "price_updated_at", "wifi_name", "wifi_password", "maps_url", "location_notes", "updated_at" from "settings" limit $1
+31|yosunme | 2026-07-22 21:58:20: params: 1
+31|yosunme | 2026-07-22 21:58:20:     at NodePgPreparedQuery.queryWithCache (/var/www/yosunmenu/node_modules/.pnpm/drizzle-orm@0.45.2_@types+pg@8.20.0_pg@8.22.0/node_modules/src/pg-core/session.ts:73:11)
+31|yosunme | 2026-07-22 21:58:20:     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+31|yosunme | 2026-07-22 21:58:20:     at async <anonymous> (/var/www/yosunmenu/node_modules/.pnpm/drizzle-orm@0.45.2_@types+pg@8.20.0_pg@8.22.0/node_modules/src/node-postgres/session.ts:154:19)
+31|yosunme | 2026-07-22 21:58:20:     at async <anonymous> (/var/www/yosunmenu/artifacts/api-server/src/routes/menu.ts:152:22)
+31|yosunme | 2026-07-22 21:58:21: Error: Failed query: select "product_id", count(*) from "analytics_events" where "analytics_events"."type" = $1 group by "analytics_events"."product_id"
+31|yosunme | 2026-07-22 21:58:21: params: product_view
+31|yosunme | 2026-07-22 21:58:21:     at NodePgPreparedQuery.queryWithCache (/var/www/yosunmenu/node_modules/.pnpm/drizzle-orm@0.45.2_@types+pg@8.20.0_pg@8.22.0/node_modules/src/pg-core/session.ts:73:11)
+31|yosunme | 2026-07-22 21:58:21:     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+31|yosunme | 2026-07-22 21:58:21:     at async <anonymous> (/var/www/yosunmenu/node_modules/.pnpm/drizzle-orm@0.45.2_@types+pg@8.20.0_pg@8.22.0/node_modules/src/node-postgres/session.ts:154:19)
+31|yosunme | 2026-07-22 21:58:21:     at async <anonymous> (/var/www/yosunmenu/artifacts/api-server/src/routes/analytics.ts:15:16)
+31|yosunme | 2026-07-22 22:00:58: Warning: connect.session() MemoryStore is not
+31|yosunme | 2026-07-22 22:00:58: designed for a production environment, as it will leak
+31|yosunme | 2026-07-22 22:00:58: memory, and will not scale past a single process.
+31|yosunme | 2026-07-22 22:18:13: Warning: connect.session() MemoryStore is not
+31|yosunme | 2026-07-22 22:18:13: designed for a production environment, as it will leak
+31|yosunme | 2026-07-22 22:18:13: memory, and will not scale past a single process.
+31|yosunme | 2026-07-22 22:30:05: Warning: connect.session() MemoryStore is not
+31|yosunme | 2026-07-22 22:30:05: designed for a production environment, as it will leak
+31|yosunme | 2026-07-22 22:30:05: memory, and will not scale past a single process.
+31|yosunme | 2026-07-22 22:33:39: Warning: connect.session() MemoryStore is not
+31|yosunme | 2026-07-22 22:33:39: designed for a production environment, as it will leak
+31|yosunme | 2026-07-22 22:33:39: memory, and will not scale past a single process.
+
+/root/.pm2/logs/yosunmenu-out-31.log last 50 lines:
+31|yosunme | 2-55-4-35.datahost.net.tr","req":{"id":11,"method":"GET","url":"/api/menu"},"res":{"statusCode":404},"responseTime":14,"msg":"request completed"}
+31|yosunme | 2026-07-22 22:33:34: {"level":30,"time":1784748814681,"pid":763871,"hostname":"162-55-4-35.datahost.net.tr","req":{"id":12,"method":"GET","url":"/favicon.png"},"res":{"statusCode":200},"responseTime":13,"msg":"request completed"}
+31|yosunme | 2026-07-22 22:33:37: {"level":30,"time":1784748817780,"pid":763871,"hostname":"162-55-4-35.datahost.net.tr","req":{"id":13,"method":"GET","url":"/a"},"res":{"statusCode":200},"responseTime":3,"msg":"request completed"}
+31|yosunme | 2026-07-22 22:33:37: {"level":30,"time":1784748817840,"pid":763871,"hostname":"162-55-4-35.datahost.net.tr","req":{"id":14,"method":"GET","url":"/assets/index-Bfb1dUMQ.js"},"res":{"statusCode":200},"responseTime":3,"msg":"request completed"}
+31|yosunme | 2026-07-22 22:33:37: {"level":30,"time":1784748817841,"pid":763871,"hostname":"162-55-4-35.datahost.net.tr","req":{"id":15,"method":"GET","url":"/assets/vendor-router-rVEHLxDJ.js"},"res":{"statusCode":200},"responseTime":2,"msg":"request completed"}
+31|yosunme | 2026-07-22 22:33:37: {"level":30,"time":1784748817843,"pid":763871,"hostname":"162-55-4-35.datahost.net.tr","req":{"id":16,"method":"GET","url":"/assets/index-BBGJj2IC.css"},"res":{"statusCode":200},"responseTime":1,"msg":"request completed"}
+31|yosunme | 2026-07-22 22:33:37: {"level":30,"time":1784748817852,"pid":763871,"hostname":"162-55-4-35.datahost.net.tr","req":{"id":17,"method":"GET","url":"/assets/vendor-query-OeOVlcyv.js"},"res":{"statusCode":200},"responseTime":8,"msg":"request completed"}
+31|yosunme | 2026-07-22 22:33:37: {"level":30,"time":1784748817855,"pid":763871,"hostname":"162-55-4-35.datahost.net.tr","req":{"id":18,"method":"GET","url":"/assets/vendor-dnd-CbmQomCX.js"},"res":{"statusCode":200},"responseTime":2,"msg":"request completed"}
+31|yosunme | 2026-07-22 22:33:39: {"level":30,"time":1784748819724,"pid":766710,"hostname":"162-55-4-35.datahost.net.tr","port":1081,"msg":"Server listening"}
+31|yosunme | 2026-07-22 22:33:42: {"level":30,"time":1784748822926,"pid":766710,"hostname":"162-55-4-35.datahost.net.tr","req":{"id":1,"method":"GET","url":"/"},"res":{"statusCode":200},"responseTime":13,"msg":"request completed"}
+31|yosunme | 2026-07-22 22:33:42: {"level":30,"time":1784748822986,"pid":766710,"hostname":"162-55-4-35.datahost.net.tr","req":{"id":3,"method":"GET","url":"/assets/vendor-router-rVEHLxDJ.js"},"res":{"statusCode":200},"responseTime":5,"msg":"request completed"}
+31|yosunme | 2026-07-22 22:33:42: {"level":30,"time":1784748822990,"pid":766710,"hostname":"162-55-4-35.datahost.net.tr","req":{"id":4,"method":"GET","url":"/assets/vendor-query-OeOVlcyv.js"},"res":{"statusCode":200},"responseTime":7,"msg":"request completed"}
+31|yosunme | 2026-07-22 22:33:42: {"level":30,"time":1784748822993,"pid":766710,"hostname":"162-55-4-35.datahost.net.tr","req":{"id":6,"method":"GET","url":"/assets/vendor-dnd-CbmQomCX.js"},"res":{"statusCode":200},"responseTime":5,"msg":"request completed"}
+31|yosunme | 2026-07-22 22:33:42: {"level":30,"time":1784748822994,"pid":766710,"hostname":"162-55-4-35.datahost.net.tr","req":{"id":5,"method":"GET","url":"/assets/index-BBGJj2IC.css"},"res":{"statusCode":200},"responseTime":9,"msg":"request completed"}
+31|yosunme | 2026-07-22 22:33:42: {"level":30,"time":1784748822994,"pid":766710,"hostname":"162-55-4-35.datahost.net.tr","req":{"id":2,"method":"GET","url":"/assets/index-Bfb1dUMQ.js"},"res":{"statusCode":200},"responseTime":15,"msg":"request completed"}
+31|yosunme | 2026-07-22 22:33:43: {"level":30,"time":1784748823350,"pid":766710,"hostname":"162-55-4-35.datahost.net.tr","req":{"id":7,"method":"GET","url":"/assets/home-page-CB4rPcQd.js"},"res":{"statusCode":200},"responseTime":12,"msg":"request completed"}
+31|yosunme | 2026-07-22 22:33:43: {"level":30,"time":1784748823352,"pid":766710,"hostname":"162-55-4-35.datahost.net.tr","req":{"id":8,"method":"GET","url":"/assets/menu-states-BTf04xE6.js"},"res":{"statusCode":200},"responseTime":11,"msg":"request completed"}
+31|yosunme | 2026-07-22 22:33:43: {"level":30,"time":1784748823356,"pid":766710,"hostname":"162-55-4-35.datahost.net.tr","req":{"id":9,"method":"GET","url":"/assets/page-transition-CZHO9ngG.js"},"res":{"statusCode":200},"responseTime":14,"msg":"request completed"}
+31|yosunme | 2026-07-22 22:33:43: {"level":30,"time":1784748823360,"pid":766710,"hostname":"162-55-4-35.datahost.net.tr","req":{"id":10,"method":"GET","url":"/assets/globe-BNOH4ynm.js"},"res":{"statusCode":200},"responseTime":13,"msg":"request completed"}
+31|yosunme | 2026-07-22 22:33:43: {"level":30,"time":1784748823367,"pid":766710,"hostname":"162-55-4-35.datahost.net.tr","req":{"id":11,"method":"GET","url":"/assets/vendor-motion-DwZWlLKE.js"},"res":{"statusCode":200},"responseTime":14,"msg":"request completed"}
+31|yosunme | 2026-07-22 22:33:43: {"level":30,"time":1784748823368,"pid":766710,"hostname":"162-55-4-35.datahost.net.tr","req":{"id":12,"method":"GET","url":"/assets/wifi-BGUIZt99.js"},"res":{"statusCode":200},"responseTime":10,"msg":"request completed"}
+31|yosunme | 2026-07-22 22:33:43: {"level":30,"time":1784748823390,"pid":766710,"hostname":"162-55-4-35.datahost.net.tr","req":{"id":13,"method":"GET","url":"/assets/chevron-down-BKLmF-CM.js"},"res":{"statusCode":200},"responseTime":29,"msg":"request completed"}
+31|yosunme | 2026-07-22 22:33:43: {"level":30,"time":1784748823397,"pid":766710,"hostname":"162-55-4-35.datahost.net.tr","req":{"id":14,"method":"GET","url":"/assets/search-Q5e6-40Y.js"},"res":{"statusCode":200},"responseTime":32,"msg":"request completed"}
+31|yosunme | 2026-07-22 22:33:43: {"level":30,"time":1784748823430,"pid":766710,"hostname":"162-55-4-35.datahost.net.tr","req":{"id":15,"method":"GET","url":"/api/menu"},"res":{"statusCode":404},"responseTime":60,"msg":"request completed"}
+31|yosunme | 2026-07-22 22:33:43: {"level":30,"time":1784748823658,"pid":766710,"hostname":"162-55-4-35.datahost.net.tr","req":{"id":16,"method":"GET","url":"/api/analytics/product-views/public"},"res":{"statusCode":304},"responseTime":11,"msg":"request completed"}
+31|yosunme | 2026-07-22 22:33:44: {"level":30,"time":1784748824340,"pid":766710,"hostname":"162-55-4-35.datahost.net.tr","req":{"id":17,"method":"GET","url":"/"},"res":{"statusCode":304},"responseTime":3,"msg":"request completed"}
+31|yosunme | 2026-07-22 22:33:44: {"level":30,"time":1784748824401,"pid":766710,"hostname":"162-55-4-35.datahost.net.tr","req":{"id":18,"method":"GET","url":"/assets/index-Bfb1dUMQ.js"},"res":{"statusCode":304},"responseTime":4,"msg":"request completed"}
+31|yosunme | 2026-07-22 22:33:44: {"level":30,"time":1784748824402,"pid":766710,"hostname":"162-55-4-35.datahost.net.tr","req":{"id":19,"method":"GET","url":"/assets/vendor-router-rVEHLxDJ.js"},"res":{"statusCode":304},"responseTime":2,"msg":"request completed"}
+31|yosunme | 2026-07-22 22:33:44: {"level":30,"time":1784748824405,"pid":766710,"hostname":"162-55-4-35.datahost.net.tr","req":{"id":20,"method":"GET","url":"/assets/vendor-query-OeOVlcyv.js"},"res":{"statusCode":304},"responseTime":2,"msg":"request completed"}
+31|yosunme | 2026-07-22 22:33:44: {"level":30,"time":1784748824408,"pid":766710,"hostname":"162-55-4-35.datahost.net.tr","req":{"id":21,"method":"GET","url":"/assets/vendor-dnd-CbmQomCX.js"},"res":{"statusCode":304},"responseTime":2,"msg":"request completed"}
+31|yosunme | 2026-07-22 22:33:44: {"level":30,"time":1784748824411,"pid":766710,"hostname":"162-55-4-35.datahost.net.tr","req":{"id":22,"method":"GET","url":"/assets/index-BBGJj2IC.css"},"res":{"statusCode":304},"responseTime":2,"msg":"request completed"}
+31|yosunme | 2026-07-22 22:33:44: {"level":30,"time":1784748824477,"pid":766710,"hostname":"162-55-4-35.datahost.net.tr","req":{"id":23,"method":"GET","url":"/assets/home-page-CB4rPcQd.js"},"res":{"statusCode":304},"responseTime":2,"msg":"request completed"}
+31|yosunme | 2026-07-22 22:33:44: {"level":30,"time":1784748824479,"pid":766710,"hostname":"162-55-4-35.datahost.net.tr","req":{"id":24,"method":"GET","url":"/assets/menu-states-BTf04xE6.js"},"res":{"statusCode":304},"responseTime":1,"msg":"request completed"}
+31|yosunme | 2026-07-22 22:33:44: {"level":30,"time":1784748824481,"pid":766710,"hostname":"162-55-4-35.datahost.net.tr","req":{"id":25,"method":"GET","url":"/assets/page-transition-CZHO9ngG.js"},"res":{"statusCode":304},"responseTime":1,"msg":"request completed"}
+31|yosunme | 2026-07-22 22:33:44: {"level":30,"time":1784748824483,"pid":766710,"hostname":"162-55-4-35.datahost.net.tr","req":{"id":26,"method":"GET","url":"/assets/globe-BNOH4ynm.js"},"res":{"statusCode":304},"responseTime":1,"msg":"request completed"}
+31|yosunme | 2026-07-22 22:33:44: {"level":30,"time":1784748824487,"pid":766710,"hostname":"162-55-4-35.datahost.net.tr","req":{"id":27,"method":"GET","url":"/assets/vendor-motion-DwZWlLKE.js"},"res":{"statusCode":304},"responseTime":4,"msg":"request completed"}
+31|yosunme | 2026-07-22 22:33:44: {"level":30,"time":1784748824488,"pid":766710,"hostname":"162-55-4-35.datahost.net.tr","req":{"id":28,"method":"GET","url":"/assets/wifi-BGUIZt99.js"},"res":{"statusCode":304},"responseTime":4,"msg":"request completed"}
+31|yosunme | 2026-07-22 22:33:44: {"level":30,"time":1784748824489,"pid":766710,"hostname":"162-55-4-35.datahost.net.tr","req":{"id":29,"method":"GET","url":"/assets/chevron-down-BKLmF-CM.js"},"res":{"statusCode":304},"responseTime":1,"msg":"request completed"}
+31|yosunme | 2026-07-22 22:33:44: {"level":30,"time":1784748824491,"pid":766710,"hostname":"162-55-4-35.datahost.net.tr","req":{"id":30,"method":"GET","url":"/assets/search-Q5e6-40Y.js"},"res":{"statusCode":304},"responseTime":1,"msg":"request completed"}
+31|yosunme | 2026-07-22 22:33:44: {"level":30,"time":1784748824496,"pid":766710,"hostname":"162-55-4-35.datahost.net.tr","req":{"id":31,"method":"GET","url":"/api/menu"},"res":{"statusCode":404},"responseTime":4,"msg":"request completed"}
+31|yosunme | 2026-07-22 22:33:44: {"level":30,"time":1784748824498,"pid":766710,"hostname":"162-55-4-35.datahost.net.tr","req":{"id":32,"method":"GET","url":"/favicon.png"},"res":{"statusCode":200},"responseTime":3,"msg":"request completed"}
+31|yosunme | 2026-07-22 22:33:44: {"level":30,"time":1784748824788,"pid":766710,"hostname":"162-55-4-35.datahost.net.tr","req":{"id":33,"method":"GET","url":"/api/analytics/product-views/public"},"res":{"statusCode":304},"responseTime":6,"msg":"request completed"}
+
+root@162-55-4-35:/var/www/yosunmenu# 
