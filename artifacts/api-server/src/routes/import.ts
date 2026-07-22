@@ -150,6 +150,34 @@ function parseProducts(html: string): RawProduct[] {
   return results;
 }
 
+function getMaxPage(html: string): number {
+  // ?category=X&page=N veya ?page=N linklerinden maksimum sayfa numarasını çıkar
+  const re = /[?&]page=(\d+)/g;
+  let max = 1;
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(html)) !== null) {
+    const n = parseInt(m[1]);
+    if (n > max) max = n;
+  }
+  return max;
+}
+
+async function fetchAllProductsForCategory(catId: number, source: string): Promise<RawProduct[]> {
+  const firstHtml = await fetchHtml(`${source}/categories?category=${catId}`);
+  const maxPage = getMaxPage(firstHtml);
+  const allProds = new Map<number, RawProduct>();
+  for (const p of parseProducts(firstHtml)) allProds.set(p.id, p);
+
+  for (let page = 2; page <= maxPage; page++) {
+    try {
+      const html = await fetchHtml(`${source}/categories?category=${catId}&page=${page}`);
+      for (const p of parseProducts(html)) allProds.set(p.id, p);
+    } catch { /* sayfa çekilemezse atla */ }
+  }
+
+  return [...allProds.values()];
+}
+
 function normalizeSourceUrl(raw: string): string {
   let url = raw.trim();
   if (!url.startsWith("http")) url = `https://${url}`;
@@ -197,24 +225,21 @@ router.post("/import/scrape", requireAuth, async (req, res): Promise<void> => {
     }
     send({ type: "log", msg: `${rawCats.length} kategori bulundu.` });
 
-    /* 2. Fetch all category product pages */
+    /* 2. Fetch all category product pages (sayfalama destekli) */
     send({ type: "log", msg: "Her kategorinin ürünleri çekiliyor…" });
     // Dijita sitelerinde her kategori sayfası TÜM ürünleri içerir (JS ile filtreler).
-    // Her ürünün menu_cat alanı her zaman ürünün kendi gerçek kategorisini gösterir —
-    // sayfa bağlamına göre değişmez. Bu nedenle menu_cat'e güvenerek atama yapıyoruz.
+    // menu_cat her zaman ürünün kendi gerçek kategorisini gösterir.
+    // Sayfalama: ?category=X&page=N formatı — tüm sayfalar çekilir.
     const allProducts = new Map<number, RawProduct>();
 
     for (let i = 0; i < rawCats.length; i++) {
       const cat = rawCats[i];
       send({ type: "progress", done: i, total: rawCats.length, label: `Kategori: ${cat.name}` });
       try {
-        const html = await fetchHtml(`${SOURCE}/categories?category=${cat.id}`);
-        const prods = parseProducts(html);
-        // menu_cat doğru kategoriye işaret ettiği için sadece deduplikasyon yapıyoruz
+        const prods = await fetchAllProductsForCategory(cat.id, SOURCE);
         for (const p of prods) { allProducts.set(p.id, p); }
-        // Bu sayfada kaç tane bu kategoriye ait ürün var?
-        const ownProds = prods.filter(p => p.menu_cat === cat.id);
-        send({ type: "log", msg: `  ${cat.name}: ${ownProds.length} ürün (sayfada toplam ${prods.length})` });
+        const ownCount = prods.filter(p => p.menu_cat === cat.id).length;
+        send({ type: "log", msg: `  ${cat.name}: ${ownCount} ürün` });
       } catch (e) {
         errors.push(`Kategori ${cat.id} çekilemedi: ${String(e)}`);
         send({ type: "log", msg: `  ❌ ${cat.name}: çekilemedi` });
@@ -318,25 +343,24 @@ router.post("/import/scrape", requireAuth, async (req, res): Promise<void> => {
       }
     }
 
-    /* 7. İkinci geçiş — eksik ürünleri kontrol et */
+    /* 7. İkinci geçiş — eksik ürünleri kontrol et (sayfalama destekli) */
     send({ type: "log", msg: "\n🔍 İkinci geçiş: eksik ürünler kontrol ediliyor…" });
     let retryCount = 0;
 
     for (const cat of rawCats) {
-      const newCatId = catIdMap.get(cat.id);
-      if (!newCatId) continue;
-
       try {
-        const html = await fetchHtml(`${SOURCE}/categories?category=${cat.id}`);
-        const prods = parseProducts(html);
+        const prods = await fetchAllProductsForCategory(cat.id, SOURCE);
 
         for (const p of prods) {
+          // menu_cat ile doğru kategoriyi bul
+          const newCatId = catIdMap.get(p.menu_cat);
+          if (!newCatId) continue;
+
           const baseSlug = slugify(p.menu_name) || `urun-${p.id}`;
           const existing = await db.select({ id: productsTable.id })
             .from(productsTable).where(eq(productsTable.slug, baseSlug)).limit(1);
-          if (existing.length) continue; // already inserted
+          if (existing.length) continue;
 
-          // Bu ürün ilk geçişte atlanmış — şimdi ekle
           const price = parseFloat(p.menu_price) || 0;
           try {
             const slug = await uniqueSlug(baseSlug, "product");
@@ -351,7 +375,7 @@ router.post("/import/scrape", requireAuth, async (req, res): Promise<void> => {
             });
             retryCount++;
             prodCount++;
-            send({ type: "log", msg: `  ✓ (eksikti) ${cat.name} → ${p.menu_name}` });
+            send({ type: "log", msg: `  ✓ (eksikti) ${p.cat_name} → ${p.menu_name}` });
           } catch (e) {
             errors.push(`İkinci geçiş eklenemedi (${p.menu_name}): ${String(e)}`);
           }
