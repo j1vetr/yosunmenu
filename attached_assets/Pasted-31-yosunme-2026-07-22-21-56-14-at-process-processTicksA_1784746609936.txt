@@ -1,0 +1,16 @@
+31|yosunme | 2026-07-22 21:56:14:     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+31|yosunme | 2026-07-22 21:56:14:     at async <anonymous> (/var/www/yosunmenu/node_modules/.pnpm/drizzle-orm@0.45.2_@types+pg@8.20.0_pg@8.22.0/node_modules/src/node-postgres/session.ts:154:19)
+31|yosunme | 2026-07-22 21:56:14:     at async <anonymous> (/var/www/yosunmenu/artifacts/api-server/src/routes/analytics.ts:15:16)
+31|yosunme | 2026-07-22 21:56:35: Error: Failed query: select "id", "slug", "restaurant_name", "logo_url", "primary_color", "currency", "default_language", "openai_key", "hero_image_url", "opening_hours", "instagram", "tagline", "quality_note", "address", "description", "logo_width", "price_updated_at", "wifi_name", "wifi_password", "maps_url", "location_notes", "updated_at" from "settings" limit $1
+31|yosunme | 2026-07-22 21:56:35: params: 1
+31|yosunme | 2026-07-22 21:56:35:     at NodePgPreparedQuery.queryWithCache (/var/www/yosunmenu/node_modules/.pnpm/drizzle-orm@0.45.2_@types+pg@8.20.0_pg@8.22.0/node_modules/src/pg-core/session.ts:73:11)
+31|yosunme | 2026-07-22 21:56:35:     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+31|yosunme | 2026-07-22 21:56:35:     at async <anonymous> (/var/www/yosunmenu/node_modules/.pnpm/drizzle-orm@0.45.2_@types+pg@8.20.0_pg@8.22.0/node_modules/src/node-postgres/session.ts:154:19)
+31|yosunme | 2026-07-22 21:56:35:     at async <anonymous> (/var/www/yosunmenu/artifacts/api-server/src/routes/menu.ts:152:22)
+31|yosunme | 2026-07-22 21:56:36: Error: Failed query: select "product_id", count(*) from "analytics_events" where "analytics_events"."type" = $1 group by "analytics_events"."product_id"
+31|yosunme | 2026-07-22 21:56:36: params: product_view
+31|yosunme | 2026-07-22 21:56:36:     at NodePgPreparedQuery.queryWithCache (/var/www/yosunmenu/node_modules/.pnpm/drizzle-orm@0.45.2_@types+pg@8.20.0_pg@8.22.0/node_modules/src/pg-core/session.ts:73:11)
+31|yosunme | 2026-07-22 21:56:36:     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+31|yosunme | 2026-07-22 21:56:36:     at async <anonymous> (/var/www/yosunmenu/node_modules/.pnpm/drizzle-orm@0.45.2_@types+pg@8.20.0_pg@8.22.0/node_modules/src/node-postgres/session.ts:154:19)
+31|yosunme | 2026-07-22 21:56:36:     at async <anonymous> (/var/www/yosunmenu/artifacts/api-server/src/routes/analytics.ts:15:16)
+
