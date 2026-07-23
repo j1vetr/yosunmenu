@@ -323,31 +323,30 @@ Respond ONLY with a valid JSON object matching this exact shape:
   }
 }
 
-PORTION RULES (must be realistic for ONE restaurant serving):
-- portionUnit: "g" for solid food, "ml" for liquid drinks, "adet" for countable items (e.g. meatballs, pieces)
-- portionMin must be ≤ portionMax; for items where the range is tight (±20g/ml), you may use the same value for both
-- NEVER set portionUnit to "g" for drinks or "ml" for solid food
+PORTION RULES — read carefully, this is the most important section:
 
-TURKISH ALCOHOLIC BEVERAGE PORTION RULES — CRITICAL, follow exactly:
-- Turkish rakı menus prefix bottle sizes as a NUMBER before the brand name. The number is in CL. Formula: number × 10 = ml.
-  Examples: "70 Yeni Rakı" → 700 ml, "50 Altın Seri" → 500 ml, "35 Beylerbeyi Göbek" → 350 ml, "70 Yeni Seri" → 700 ml
-  → portionMin = portionMax = (prefix_number × 10), portionUnit = "ml"
-- "Tek Rakı" (single rakı glass): portionMin = portionMax = 45, portionUnit = "ml"
-- "Duble Rakı" (double rakı glass): portionMin = portionMax = 90, portionUnit = "ml"
-- Beer/Bira (glass/draft): portionMin = portionMax = 330, portionUnit = "ml"
-- Beer/Bira (bottle, unless size stated): portionMin = portionMax = 500, portionUnit = "ml"
-- Wine glass / Şarap bardağı: portionMin = portionMax = 150, portionUnit = "ml"
-- Spirits served by glass (viski, votka, cin, likör, tek/duble): 40–90 ml range, portionUnit = "ml"
+Step 1 — EXTRACT SIZE FROM PRODUCT NAME (do this first, before anything else):
+  Scan the product name for an explicit size or volume clue. Common Turkish restaurant patterns:
+  - A NUMBER before a rakı/spirits brand = bottle size in cl. Convert: number × 10 = ml.
+    "20 Yeni Rakı" → 20 cl → 200 ml | "35 Beylerbeyi Göbek" → 350 ml | "50 Altın Seri" → 500 ml | "70 Yeni Rakı" → 700 ml
+  - "Xxxxxxxxxxx Xxxxxxxxxxx 33 cl" or "330 ml" in name → 330 ml
+  - "50 cl", "500 ml", "1 L" etc. → convert to ml directly
+  If a size is found in the name → portionMin = portionMax = exact ml value, portionUnit = "ml", done.
 
-NON-ALCOHOLIC DRINK PORTION RULES:
-- Canned/bottled soft drinks (kola, fanta, sprite, soda): if "33 cl" or "330 ml" in name → 330 ml; if "20 cl" or small → 200 ml; default can = 330 ml; portionUnit = "ml"
-- Ayran: 200–250 ml, portionUnit = "ml"
-- Tea/Çay: 180–200 ml, portionUnit = "ml"
-- Turkish coffee/Türk kahvesi: 60–80 ml, portionUnit = "ml"
-- Fresh juice/Taze sıkma: 200–300 ml, portionUnit = "ml"
+Step 2 — USE YOUR PRODUCT KNOWLEDGE (when no size in name):
+  You are an expert on food & beverage serving sizes in Turkish restaurants. Use your real-world knowledge of this specific product:
+  - What is the standard glass/can/bottle size this product is typically served in at Turkish restaurants?
+  - "Tek Rakı" (single rakı glass) = 45 ml | "Duble Rakı" (double) = 90 ml
+  - Draft/can beer without stated size = 330 ml | bottled beer without stated size = 500 ml
+  - A glass of wine = 150 ml | Ayran = 200 ml | Çay = 180 ml | Türk Kahvesi = 70 ml
+  - Soft drinks (kola, fanta, sprite) without stated size = 330 ml (standard can)
+  - Solid food: soup 250g, salad 180g, kebab/döner 300g, grilled meat 280g, dessert 130g, börek 140g
+  Do NOT guess randomly — think about what this product actually is and what a single portion looks like.
 
-SOLID FOOD PORTION EXAMPLES:
-  soup 220-280g, salad 150-200g, kebab/döner 280-350g, grilled meat 250-320g, rice/pilav 180-220g, börek/pastry 120-160g, dessert 100-150g
+Step 3 — UNIT:
+  portionUnit = "ml" for all drinks (alcoholic and non-alcoholic), "g" for solid food, "adet" for countable items.
+  NEVER use "g" for drinks or "ml" for solid food.
+  portionMin must be ≤ portionMax.
 
 NUTRITION RULES (most important — must be realistic and SPECIFIC to this product):
 - nutritionFacts.energy and calories: realistic kcal for ONE restaurant serving of "${productName}" — NOT a generic number
