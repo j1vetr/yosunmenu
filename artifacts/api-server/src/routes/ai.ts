@@ -338,10 +338,13 @@ Step 2 — USE YOUR PRODUCT KNOWLEDGE (when no size in name):
   - What is the standard glass/can/bottle size this product is typically served in at Turkish restaurants?
   - "Tek Rakı" (single rakı glass) = 45 ml | "Duble Rakı" (double) = 90 ml
   - Draft/can beer without stated size = 330 ml | bottled beer without stated size = 500 ml
-  - A glass of wine = 150 ml | Ayran = 200 ml | Çay = 180 ml | Türk Kahvesi = 70 ml
-  - Soft drinks (kola, fanta, sprite) without stated size = 330 ml (standard can)
+  - Wine/Şarap: on Turkish QR menus a wine entry without a size = sold by the glass → 150 ml. If the name implies a bottle (e.g. "şişe", "75 cl") → 750 ml.
+  - Wine brands (Kavaklidere, Doluca, Kayra, Pamukkale, etc.) without size clue → treat as a glass pour = 150 ml
+  - Ayran = 200 ml | Çay = 180 ml | Türk Kahvesi = 70 ml
+  - Soft drinks (kola, fanta, sprite, soda) without stated size = 330 ml (standard can)
+  - Spirit brands (Johnnie Walker, Absolut, Jack Daniel's, etc.) served neat/on the rocks = 45 ml tek / 90 ml duble
   - Solid food: soup 250g, salad 180g, kebab/döner 300g, grilled meat 280g, dessert 130g, börek 140g
-  Do NOT guess randomly — think about what this product actually is and what a single portion looks like.
+  Do NOT guess randomly — think about what this product actually is and what a single portion looks like in a Turkish restaurant.
 
 Step 3 — UNIT:
   portionUnit = "ml" for all drinks (alcoholic and non-alcoholic), "g" for solid food, "adet" for countable items.
