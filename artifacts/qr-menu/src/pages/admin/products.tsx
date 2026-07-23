@@ -765,14 +765,29 @@ function BulkPortionModal({
   const [selected, setSelected] = useState<Set<number>>(
     () => new Set(products.filter((p) => !p.portionMin).map((p) => p.id))
   );
-  const [running,  setRunning]  = useState(false);
-  const [progress, setProgress] = useState({ done: 0, total: 0 });
+  const [running,   setRunning]  = useState(false);
+  const [progress,  setProgress] = useState({ done: 0, total: 0 });
+  const [filterCat, setFilterCat] = useState<number | null>(null);
+
+  const filteredJobs = filterCat === null
+    ? jobs
+    : jobs.filter((j) => {
+        const p = products.find((p) => p.id === j.productId);
+        return p?.categoryId === filterCat;
+      });
 
   function toggle(id: number) {
     setSelected((prev) => { const n = new Set(prev); n.has(id) ? n.delete(id) : n.add(id); return n; });
   }
   function patchJob(id: number, patch: Partial<PortionJob>) {
     setJobs((prev) => prev.map((j) => j.productId === id ? { ...j, ...patch } : j));
+  }
+
+  function selectByCategory(catId: number | null) {
+    setFilterCat(catId);
+    if (catId === null) return;
+    const ids = products.filter((p) => p.categoryId === catId).map((p) => p.id);
+    setSelected((prev) => { const n = new Set(prev); ids.forEach((id) => n.add(id)); return n; });
   }
 
   async function handleRun() {
@@ -833,6 +848,37 @@ function BulkPortionModal({
           </div>
         )}
 
+        {/* Category filter bar */}
+        <div className="px-4 py-2.5 border-b border-neutral-800 shrink-0">
+          <div className="flex gap-1.5 overflow-x-auto pb-0.5 scrollbar-none">
+            <button
+              onClick={() => setFilterCat(null)}
+              className={`shrink-0 px-3 py-1 rounded-full text-xs font-medium transition-colors ${filterCat === null ? "bg-white text-black" : "bg-neutral-800 text-neutral-400 hover:text-white"}`}
+            >
+              Tümü
+            </button>
+            {categories.map((cat) => {
+              const catName = cat.translations.find((t) => t.languageCode === "tr")?.name ?? cat.slug;
+              const catProductIds = products.filter((p) => p.categoryId === cat.id).map((p) => p.id);
+              const allSelected = catProductIds.length > 0 && catProductIds.every((id) => selected.has(id));
+              return (
+                <button
+                  key={cat.id}
+                  onClick={() => selectByCategory(filterCat === cat.id ? null : cat.id)}
+                  className={`shrink-0 px-3 py-1 rounded-full text-xs font-medium transition-colors flex items-center gap-1.5 ${
+                    filterCat === cat.id ? "bg-amber-500 text-black" : allSelected ? "bg-neutral-700 text-white" : "bg-neutral-800 text-neutral-400 hover:text-white"
+                  }`}
+                >
+                  {catName}
+                  <span className={`text-[10px] ${filterCat === cat.id ? "text-black/60" : "text-neutral-500"}`}>
+                    {catProductIds.length}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
         {/* List */}
         <div className="overflow-y-auto flex-1 divide-y divide-neutral-800">
           <div className="flex items-center gap-3 px-6 py-2 text-xs text-neutral-500">
@@ -841,7 +887,7 @@ function BulkPortionModal({
             <button onClick={() => setSelected(new Set(products.filter((p) => !p.portionMin).map((p) => p.id)))} className="underline hover:text-white">Eksikleri seç</button>
             <button onClick={() => setSelected(new Set())} className="underline hover:text-white">Seçimi kaldır</button>
           </div>
-          {jobs.map((job) => {
+          {filteredJobs.map((job) => {
             const isSel = selected.has(job.productId);
             return (
               <div key={job.productId} className="flex items-center gap-3 px-6 py-3">
@@ -850,6 +896,7 @@ function BulkPortionModal({
                 </button>
                 <div className="flex-1 min-w-0">
                   <p className="text-sm text-white truncate">{job.productName}</p>
+                  <p className="text-[10px] text-neutral-600">{job.categoryName ?? "—"}</p>
                   {job.status === "done" && job.portionMin && (
                     <p className="text-xs text-emerald-400">
                       {job.portionMin === job.portionMax ? `~${job.portionMin}` : `${job.portionMin}–${job.portionMax}`} {job.portionUnit}
